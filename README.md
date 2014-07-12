@@ -1,6 +1,8 @@
-# Evas (EE-vass)
+# Evas
 
 ### Event Assistance
+
+(EE-vass)
 
 Social app for those who require assistance in daily life.
 
