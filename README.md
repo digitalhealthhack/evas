@@ -2,7 +2,7 @@
 
 ### Event Assistance
 
-Events service for those who require assistance in daily life.
+Social app for those who require assistance in daily life.
 
 ## Aim
 
