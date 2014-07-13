@@ -8,6 +8,12 @@
  * Controller of the webApp
  */
 var app = angular.module('webApp');
-app.controller('MainCtrl', function MainCtrl ($scope) {
-    // Main
-});
+
+app.controller('MainCtrl', [
+    '$scope',
+    function MainCtrl ($scope) {
+        // Main.
+        $scope.title = 'Home';
+
+    }
+]);

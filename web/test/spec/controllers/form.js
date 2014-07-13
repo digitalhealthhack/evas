@@ -1,22 +1,22 @@
 'use strict';
 
-describe('Controller: AboutCtrl', function () {
+describe('Controller: FormCtrl', function () {
 
   // load the controller's module
   beforeEach(module('webApp'));
 
-  var AboutCtrl,
+  var FormCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AboutCtrl = $controller('AboutCtrl', {
+    FormCtrl = $controller('FormCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a title to the scope', function () {
-    expect(scope.title).toBe('About');
+  it('should have a submit method on the scope', function () {
+    expect(typeof scope.submit).toBe('function');
   });
 });

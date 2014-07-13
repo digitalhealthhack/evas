@@ -1,14 +1,16 @@
-<h2>Home</h2>
+<h2 ng-bind="title"></h2>
 
-
-<form class="login">
+<form ng-controller="FormCtrl" ng-submit="submit()" name="loginForm" class="login" autocomplete>
     <h3>Login</h3>
-    <label for="email">
-        <span>Email</span>
-        <input id="email" type="email" class="email">
+    <label for="user">
+        <span>Email:&nbsp;</span>
+        <input name="user" ng-model="user" type="email" class="user" required>
+        <span class="error" ng-show="loginForm.user.$error.required">Required</span>
     </label>
     <label for="password">
-        <span>Password</span>
-        <input id="password" type="password" class="password">
+        <span>Password:&nbsp;</span>
+        <input name="password" ng-model="password" type="password" class="password" required>
+        <span class="error" ng-show="loginForm.password.$error.required">Required</span>
     </label>
+    <input type="submit" value="Submit">
 </form>
