@@ -14,6 +14,5 @@ app.controller('MainCtrl', [
     function MainCtrl ($scope) {
         // Main.
         $scope.title = 'Home';
-
     }
 ]);

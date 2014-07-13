@@ -9,11 +9,25 @@
 
 module.exports = function (grunt) {
 
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
 
-  // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
+  if (grunt.option('help')) {
+    // Load grunt tasks automatically
+    require('load-grunt-tasks')(grunt);
+  } else {
+    require('jit-grunt')(grunt, {
+      useminPrepare: 'grunt-usemin',
+      cdnify: 'grunt-google-cdn'
+    });
+  }
+
+  // Coerce --time option to a boolean. If undefined, it becomes false
+  grunt.option('time', !!grunt.option('time'));
+  // Time by default but allow it to be turned off
+  if (!grunt.option('no-time')) {
+    // Time how long tasks take. Can help when optimizing build times
+    console.log('timing');
+    require('time-grunt')(grunt);
+  }
 
   // Configurable paths for the application
   var appConfig = {
@@ -391,6 +405,9 @@ module.exports = function (grunt) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
+
+    // Don't time the serve task.
+    grunt.option('time', false);
 
     grunt.task.run([
       'clean:server',
