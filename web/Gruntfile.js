@@ -44,10 +44,6 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
-      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -66,10 +62,10 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: process.env.DEV_PORT || 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35729
+        hostname: process.env.DEV_HOSTNAME || 'localhost',
+        livereload: true
       },
       livereload: {
         options: {
@@ -145,21 +141,6 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
 
-    // Add vendor prefixed styles
-    autoprefixer: {
-      options: {
-        browsers: ['last 1 version']
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
-      }
-    },
-
     // Automatically inject Bower components into the app
     wiredep: {
       options: {
@@ -197,9 +178,21 @@ module.exports = function (grunt) {
           generatedImagesDir: '<%= yeoman.dist %>/images/generated'
         }
       },
-      server: {
+      compile: {
         options: {
           debugInfo: true
+        }
+      },
+      watch: {
+        options: {
+          debugInfo: true,
+          watch: true
+        }
+      },
+      force: {
+        options: {
+          debugInfo: true,
+          force: true
         }
       }
     },
@@ -364,11 +357,18 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [
-        'compass:server'
-      ],
+      server: {
+        options: {
+          logConcurrentOutput: true
+        },
+        tasks: [
+          'watch',
+          'compass:watch'
+        ],
+      },
       test: [
-        'compass'
+        'compass:dist',
+        'compass:compile'
       ],
       dist: [
         'compass:dist',
@@ -394,11 +394,10 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'compass:compile',
       'wiredep',
-      'concurrent:server',
-      'autoprefixer',
       'connect:livereload',
-      'watch'
+      'concurrent:server'
     ]);
   });
 
@@ -410,7 +409,6 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
-    'autoprefixer',
     'connect:test',
     'karma'
   ]);
@@ -420,7 +418,6 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
     'concat',
     'ngmin',
     'copy:dist',

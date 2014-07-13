@@ -9,9 +9,5 @@
  */
 var app = angular.module('webApp');
 app.controller('MainCtrl', function MainCtrl ($scope) {
-    $scope.awesomeThings = [
-        'HTML5 Boilerplate',
-        'AngularJS',
-        'Karma'
-    ];
+    // Main
 });
