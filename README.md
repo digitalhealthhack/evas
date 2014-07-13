@@ -20,3 +20,19 @@ To do this by providing a service where events can be created and shared via soc
 - [ ] Share events with a link
 - [ ] Share events easily via social networks
 - [ ] Get and save events from calendars
+
+## Starting the API
+
+```bash
+# create virtualenv
+mkvirtualenv evas
+# install python project dependencies
+pip install -r requirements.txt
+
+# setup debug mode
+export DEBUG=True
+export TEMPLATE_DEBUG=True
+
+# run the server (default on localhost:80)
+python manage.py runserver
+```
