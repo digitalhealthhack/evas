@@ -11,13 +11,21 @@ TEMPLATE_DEBUG = bool(os.environ.get('TEMPLATE_DEBUG', False))
 
 DATABASES = {'default': dj_database_url.config(default='postgres://localhost/evas_api')}
 
+AUTH_USER_MODEL = 'users.User'
 ALLOWED_HOSTS = []
-
 STATIC_URL = '/static/'
-
-# Application definition
+ROOT_URLCONF = 'evas_api.urls'
+WSGI_APPLICATION = 'evas_api.wsgi.application'
 
 INSTALLED_APPS = (
+    # local
+    'users',
+
+    # third party apps
+    'rest_framework',
+    'south',
+    'user_management.api',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -35,10 +43,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'evas_api.urls'
-
-WSGI_APPLICATION = 'evas_api.wsgi.application'
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'

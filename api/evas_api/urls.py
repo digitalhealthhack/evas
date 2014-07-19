@@ -1,12 +1,17 @@
-from django.conf.urls import patterns, include, url
-
+from django.conf.urls import include, url
 from django.contrib import admin
+
+
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'evas_api.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
 
+urlpatterns = [
+    url(
+        regex=r'^api/',
+        view=include(
+            'user_management.api.urls',
+            namespace='user_management_api',
+        ),
+    ),
     url(r'^admin/', include(admin.site.urls)),
-)
+]
