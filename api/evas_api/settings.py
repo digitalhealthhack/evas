@@ -18,6 +18,8 @@ STATIC_URL = '/static/'
 # Application definition
 
 INSTALLED_APPS = (
+    'south',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
