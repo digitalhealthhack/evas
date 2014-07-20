@@ -8,6 +8,11 @@
  * Controller of the webApp
  */
 var app = angular.module('webApp');
-app.controller('AboutCtrl', function AboutCtrl ($scope) {
-    // About
-});
+
+app.controller('AboutCtrl', [
+    '$scope',
+    function AboutCtrl ($scope) {
+        // About.
+        $scope.title = 'About';
+    }
+]);
